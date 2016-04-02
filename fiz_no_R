@@ -1,0 +1,49 @@
+EXEMPLO
+
+#teste de normalidade
+shapiro.test(EXEMPLO$PRODUT)
+qqnorm(EXEMPLO$PRODUT)
+qqline(EXEMPLO$PRODUT,col="Red",lwd=2)
+# os dados nao seguem a distribuição normal
+
+#teste de homogeneidade
+bartlett.test(EXEMPLO$PRODUT,EXEMPLO$TRAT)
+
+#descrição de dados
+summary(EXEMPLO$PRODUT)
+barplot(EXEMPLO$PRODUT,ylab="TRAT",xlab="PRODUT")
+hist(EXEMPLO$PRODUT,col = "Dark Green",main = "Histograma dos dados não transformados",ylab = "Frequencia", xlab="Produtividade")
+sd(EXEMPLO$PRODUT)
+var(EXEMPLO$PRODUT)
+length(EXEMPLO$PRODUT)
+IQR(EXEMPLO$PRODUT)
+erropadrao=sd(EXEMPLO$PRODUT)/sqrt(length(EXEMPLO$PRODUT))
+erropadrao
+
+#transformação de dados
+x=1:5
+Produtividade=c(EXEMPLO$PRODUT)
+bcx=data.frame(x=1:5, Produtividade=c(EXEMPLO$PRODUT))
+str(bcx)
+bcx$x=as.numeric(bcx$x)
+str(bcx)
+boxplot(Produtividade~x,data=bcx)
+library(MASS)
+
+boxcox(Produtividade~x,data=bcx)
+locator()
+#clica uma vez com o botão esq do mouse na interseção entre a curva e 
+#a linha pontilhada, depois clica com os dois botões do mouse no mesmo lugar.
+#no console vai aparecer o valor de x e de y. Multiplique o valor cada valor
+#pelo valor de x
+
+y=Produtividade^1.210318
+y
+boxplot(y~x,data=bcx)
+hist(y,main = "Histograma de dados transformados",xlab="Valores",ylab = "Probalidades")
+
+
+#teste de normalidade depois da transformação de dados
+shapiro.test(y)
+qqnorm(y)
+qqline(y)
